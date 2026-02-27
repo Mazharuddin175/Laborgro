@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laborgro — Hire Skilled Workers, Instantly</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;0,800;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #3d7ab5;
+    --blue-dark: #2c5f8a;
+    --blue-light: #c8dff0;
+    --blue-pale: #eef5fb;
+    --text: #1a2533;
+    --muted: #6b7f93;
+    --white: #ffffff;
+    --border: #dde9f3;
+    --radius: 16px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 60px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem; font-weight: 800;
+    color: var(--blue);
+    letter-spacing: -0.5px;
+  }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted); font-size: 0.95rem;
+    font-weight: 500; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--blue); }
+  .nav-cta {
+    background: var(--blue); color: var(--white) !important;
+    padding: 10px 24px; border-radius: 50px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--blue-dark) !important; color: var(--white) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 60px 80px;
+    gap: 60px;
+    background: linear-gradient(145deg, var(--white) 0%, var(--blue-pale) 100%);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--blue-light) 0%, transparent 70%);
+    opacity: 0.5;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--blue-pale); border: 1px solid var(--blue-light);
+    color: var(--blue); padding: 6px 16px; border-radius: 50px;
+    font-size: 0.85rem; font-weight: 600; margin-bottom: 24px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge span { width: 8px; height: 8px; background: var(--blue); border-radius: 50%; display: inline-block; }
+
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 800; line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 20px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero-title em { font-style: italic; color: var(--blue); }
+
+  .hero-sub {
+    font-size: 1.15rem; color: var(--muted); line-height: 1.7;
+    max-width: 480px; margin-bottom: 40px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--blue); color: var(--white);
+    padding: 16px 32px; border-radius: 50px;
+    font-size: 1rem; font-weight: 600;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all 0.2s; box-shadow: 0 4px 20px rgba(61,122,181,0.35);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(61,122,181,0.45); }
+  .btn-secondary {
+    background: transparent; color: var(--blue);
+    padding: 16px 32px; border-radius: 50px;
+    font-size: 1rem; font-weight: 600;
+    text-decoration: none; border: 2px solid var(--blue-light);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-secondary:hover { border-color: var(--blue); background: var(--blue-pale); }
+
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 48px;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat { border-left: 3px solid var(--blue-light); padding-left: 16px; }
+  .stat-num { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 800; color: var(--blue); }
+  .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 2px; }
+
+  /* Hero Visual */
+  .hero-visual {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    animation: fadeRight 0.8s 0.3s ease both;
+  }
+  .worker-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    transition: all 0.3s;
+    box-shadow: 0 2px 12px rgba(61,122,181,0.08);
+  }
+  .worker-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(61,122,181,0.15); }
+  .worker-card.featured {
+    background: var(--blue); color: var(--white);
+    grid-column: span 2;
+    display: flex; align-items: center; gap: 20px;
+  }
+  .worker-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; background: var(--blue-pale); margin-bottom: 12px;
+  }
+  .worker-card.featured .worker-avatar { background: rgba(255,255,255,0.2); margin-bottom: 0; flex-shrink: 0; }
+  .worker-name { font-weight: 700; font-size: 0.95rem; }
+  .worker-role { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+  .worker-card.featured .worker-role { color: rgba(255,255,255,0.75); }
+  .worker-rating { font-size: 0.82rem; color: #f5a623; margin-top: 8px; font-weight: 600; }
+  .worker-card.featured .worker-rating { color: #ffd175; }
+  .avail-badge {
+    display: inline-block; background: #e6f7ee; color: #1a8c4e;
+    padding: 3px 10px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; margin-top: 8px;
+  }
+  .worker-card.featured .avail-badge { background: rgba(255,255,255,0.2); color: var(--white); }
+  .worker-info { flex: 1; }
+  .hire-btn {
+    background: var(--white); color: var(--blue);
+    border: none; padding: 10px 20px; border-radius: 50px;
+    font-weight: 700; font-size: 0.88rem; cursor: pointer;
+    white-space: nowrap; flex-shrink: 0;
+  }
+
+  /* SERVICES */
+  .services {
+    padding: 100px 60px;
+    background: var(--white);
+  }
+  .section-label {
+    font-size: 0.85rem; font-weight: 700; color: var(--blue);
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 800; line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .section-sub { color: var(--muted); font-size: 1.05rem; max-width: 500px; line-height: 1.7; margin-bottom: 56px; }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+  }
+  .service-card {
+    background: var(--blue-pale);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    transition: all 0.3s; cursor: pointer;
+  }
+  .service-card:hover {
+    background: var(--blue); color: var(--white);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(61,122,181,0.25);
+    border-color: var(--blue);
+  }
+  .service-icon {
+    font-size: 2rem; margin-bottom: 16px;
+    width: 56px; height: 56px; background: var(--white);
+    border-radius: 14px; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 10px rgba(61,122,181,0.1);
+    transition: background 0.3s;
+  }
+  .service-card:hover .service-icon { background: rgba(255,255,255,0.2); }
+  .service-name { font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+  .service-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; transition: color 0.3s; }
+  .service-card:hover .service-desc { color: rgba(255,255,255,0.8); }
+
+  /* HOW IT WORKS */
+  .how {
+    padding: 100px 60px;
+    background: var(--blue-pale);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .steps { display: flex; flex-direction: column; gap: 32px; }
+  .step { display: flex; gap: 20px; align-items: flex-start; }
+  .step-num {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--blue); color: var(--white);
+    font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .step-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 6px; }
+  .step-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+
+  .how-visual {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 8px 40px rgba(61,122,181,0.12);
+  }
+  .search-bar {
+    background: var(--blue-pale);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    padding: 14px 20px;
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px;
+  }
+  .search-bar input {
+    border: none; background: transparent; flex: 1;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--text); outline: none;
+  }
+  .search-btn {
+    background: var(--blue); color: var(--white); border: none;
+    padding: 10px 20px; border-radius: 50px; font-weight: 600; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .result-list { display: flex; flex-direction: column; gap: 12px; }
+  .result-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px; border-radius: 12px;
+    border: 1px solid var(--border); transition: all 0.2s; cursor: pointer;
+  }
+  .result-item:hover { border-color: var(--blue); background: var(--blue-pale); }
+  .r-avatar { width: 42px; height: 42px; border-radius: 50%; background: var(--blue-pale); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+  .r-name { font-weight: 600; font-size: 0.9rem; }
+  .r-role { font-size: 0.8rem; color: var(--muted); }
+  .r-price { margin-left: auto; font-weight: 700; color: var(--blue); font-size: 0.9rem; }
+
+  /* FOR WORKERS */
+  .workers-section {
+    padding: 100px 60px;
+    background: var(--blue);
+    color: var(--white);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .workers-section .section-label { color: rgba(255,255,255,0.6); }
+  .workers-section .section-title { color: var(--white); }
+  .workers-section .section-sub { color: rgba(255,255,255,0.75); }
+  .benefits { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .benefit {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: var(--radius);
+    padding: 22px 20px;
+  }
+  .benefit-icon { font-size: 1.6rem; margin-bottom: 10px; }
+  .benefit-title { font-weight: 700; margin-bottom: 4px; }
+  .benefit-desc { font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+  .worker-cta { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
+  .btn-white {
+    background: var(--white); color: var(--blue);
+    padding: 14px 28px; border-radius: 50px;
+    font-size: 0.95rem; font-weight: 700; text-decoration: none;
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .btn-outline-white {
+    background: transparent; color: var(--white);
+    padding: 14px 28px; border-radius: 50px;
+    font-size: 0.95rem; font-weight: 700; text-decoration: none;
+    border: 2px solid rgba(255,255,255,0.4); transition: all 0.2s; display: inline-block;
+  }
+  .btn-outline-white:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
+
+  /* TESTIMONIALS */
+  .testimonials { padding: 100px 60px; background: var(--white); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+  .testi-card {
+    background: var(--blue-pale); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px;
+  }
+  .testi-stars { color: #f5a623; font-size: 0.9rem; margin-bottom: 16px; letter-spacing: 2px; }
+  .testi-text { font-size: 0.95rem; line-height: 1.7; color: var(--text); margin-bottom: 20px; font-style: italic; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-av { width: 40px; height: 40px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 700; font-size: 0.9rem; }
+  .testi-name { font-weight: 700; font-size: 0.9rem; }
+  .testi-loc { font-size: 0.8rem; color: var(--muted); }
+
+  /* CTA SECTION */
+  .cta-section {
+    padding: 100px 60px; text-align: center;
+    background: linear-gradient(135deg, var(--blue-pale) 0%, var(--white) 100%);
+  }
+  .cta-section .section-title { margin-bottom: 16px; }
+  .cta-section .section-sub { margin: 0 auto 40px; text-align: center; }
+  .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  /* FOOTER */
+  footer {
+    background: var(--text); color: rgba(255,255,255,0.6);
+    padding: 60px 60px 40px;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+  .footer-brand { font-family: 'Fraunces', serif; font-size: 1.5rem; color: var(--white); font-weight: 800; margin-bottom: 12px; }
+  .footer-tagline { font-size: 0.9rem; line-height: 1.6; }
+  .footer-col h4 { color: var(--white); font-weight: 700; margin-bottom: 16px; font-size: 0.9rem; }
+  .footer-col a { display: block; color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.88rem; margin-bottom: 10px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--white); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 28px; display: flex; justify-content: space-between; font-size: 0.85rem; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeRight {
+    from { opacity: 0; transform: translateX(32px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero, .how, .workers-section { grid-template-columns: 1fr; padding: 100px 24px 60px; gap: 48px; }
+    .hero-visual { display: none; }
+    .services { padding: 60px 24px; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .testimonials, .cta-section { padding: 60px 24px; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    footer { padding: 40px 24px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Laborgro</div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#how">How it works</a>
+    <a href="#workers">For Workers</a>
+    <a href="#" class="nav-cta">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><span></span> Trusted Workforce Platform</div>
+    <h1 class="hero-title">Hire <em>skilled workers</em> for any job, instantly</h1>
+    <p class="hero-sub">From home cleaning to security guards — find verified, reliable workers in your city within minutes. No middlemen, no hassle.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">Hire a Worker →</a>
+      <a href="#workers" class="btn-secondary">Find Work</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">10K+</div>
+        <div class="stat-label">Verified Workers</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Service Types</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4.8★</div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="worker-card featured">
+      <div class="worker-avatar">👷</div>
+      <div class="worker-info">
+        <div class="worker-name">Ramesh Kumar</div>
+        <div class="worker-role">Senior Electrician • Delhi NCR</div>
+        <div class="worker-rating">★★★★★ 4.9 (128 jobs)</div>
+        <div class="avail-badge">Available Now</div>
+      </div>
+      <button class="hire-btn">Hire Now</button>
+    </div>
+    <div class="worker-card">
+      <div class="worker-avatar">🧹</div>
+      <div class="worker-name">Priya S.</div>
+      <div class="worker-role">House Cleaning</div>
+      <div class="worker-rating">★★★★★ 4.8</div>
+      <div class="avail-badge">Available</div>
+    </div>
+    <div class="worker-card">
+      <div class="worker-avatar">🔨</div>
+      <div class="worker-name">Suresh M.</div>
+      <div class="worker-role">Carpenter</div>
+      <div class="worker-rating">★★★★☆ 4.6</div>
+      <div class="avail-badge">Available</div>
+    </div>
+    <div class="worker-card">
+      <div class="worker-avatar">🎨</div>
+      <div class="worker-name">Ajay P.</div>
+      <div class="worker-role">Painter</div>
+      <div class="worker-rating">★★★★★ 4.9</div>
+      <div class="avail-badge">Available</div>
+    </div>
+    <div class="worker-card">
+      <div class="worker-avatar">🚗</div>
+      <div class="worker-name">Vikram R.</div>
+      <div class="worker-role">Car Wash</div>
+      <div class="worker-rating">★★★★☆ 4.7</div>
+      <div class="avail-badge">Available</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="reveal">
+    <div class="section-label">What we offer</div>
+    <h2 class="section-title">Any service,<br>one platform</h2>
+    <p class="section-sub">Browse from a wide range of skilled professionals ready to help you with any task at home or office.</p>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-icon">🎨</div>
+      <div class="service-name">Painting</div>
+      <div class="service-desc">Interior & exterior painters for homes and offices</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔨</div>
+      <div class="service-name">Carpentry</div>
+      <div class="service-desc">Furniture repair, fitting, and custom woodwork</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🚗</div>
+      <div class="service-name">Car Wash</div>
+      <div class="service-desc">At-home vehicle cleaning and detailing</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🧹</div>
+      <div class="service-name">House Cleaning</div>
+      <div class="service-desc">Deep cleaning, regular housekeeping & more</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔒</div>
+      <div class="service-name">Security Guard</div>
+      <div class="service-desc">Trained guards for events, homes & offices</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⚡</div>
+      <div class="service-name">Electrician</div>
+      <div class="service-desc">Wiring, installations, and electrical repairs</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔧</div>
+      <div class="service-name">Plumbing</div>
+      <div class="service-desc">Pipe repairs, fittings, and installations</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏢</div>
+      <div class="service-name">Office Staff</div>
+      <div class="service-desc">Peons, helpers, pantry & support staff</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="reveal">
+    <div class="section-label">Simple process</div>
+    <h2 class="section-title">Hire in 3<br>easy steps</h2>
+    <p class="section-sub">Getting help has never been easier. Browse, book, and get the job done — all from your phone.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Search for a service</div>
+          <div class="step-desc">Type what you need — painter, cleaner, guard — and filter by location, availability, and ratings.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Choose your worker</div>
+          <div class="step-desc">Browse verified profiles, read reviews, and select the best match for your job and budget.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Book & get it done</div>
+          <div class="step-desc">Schedule instantly or for a later time. Pay securely after the job is completed to your satisfaction.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="how-visual reveal">
+    <div class="search-bar">
+      <span>🔍</span>
+      <input type="text" value="Painter in Delhi" readonly>
+      <button class="search-btn">Search</button>
+    </div>
+    <div class="result-list">
+      <div class="result-item">
+        <div class="r-avatar">🎨</div>
+        <div>
+          <div class="r-name">Ajay Pawar</div>
+          <div class="r-role">Painter • ★ 4.9 • 5km away</div>
+        </div>
+        <div class="r-price">₹450/hr</div>
+      </div>
+      <div class="result-item">
+        <div class="r-avatar">🎨</div>
+        <div>
+          <div class="r-name">Ravi Shankar</div>
+          <div class="r-role">Painter • ★ 4.7 • 3km away</div>
+        </div>
+        <div class="r-price">₹380/hr</div>
+      </div>
+      <div class="result-item">
+        <div class="r-avatar">🎨</div>
+        <div>
+          <div class="r-name">Mohan Lal</div>
+          <div class="r-role">Painter • ★ 4.8 • 7km away</div>
+        </div>
+        <div class="r-price">₹420/hr</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WORKERS -->
+<section class="workers-section" id="workers">
+  <div class="reveal">
+    <div class="section-label">For Workers</div>
+    <h2 class="section-title">Grow your<br>income with us</h2>
+    <p class="section-sub">Join thousands of skilled workers already earning more with Laborgro. Build your profile, get hired, and grow your career.</p>
+    <div class="worker-cta">
+      <a href="#" class="btn-white">Register as Worker</a>
+      <a href="#" class="btn-outline-white">Learn More</a>
+    </div>
+  </div>
+  <div class="benefits reveal">
+    <div class="benefit">
+      <div class="benefit-icon">💰</div>
+      <div class="benefit-title">More Earnings</div>
+      <div class="benefit-desc">Get paid fairly and directly with no middlemen cutting your income.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">📱</div>
+      <div class="benefit-title">Easy App</div>
+      <div class="benefit-desc">Manage all your jobs, schedule, and payments from one simple app.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">⭐</div>
+      <div class="benefit-title">Build Reputation</div>
+      <div class="benefit-desc">Earn ratings and reviews that help you get more and better jobs.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">🛡️</div>
+      <div class="benefit-title">Work Safely</div>
+      <div class="benefit-desc">Every client is verified. Your safety and fair treatment is guaranteed.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="reveal" style="text-align:center;">
+    <div class="section-label">Reviews</div>
+    <h2 class="section-title">Loved by customers<br>& workers alike</h2>
+  </div>
+  <div class="testimonials-grid reveal">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Got a painter within 2 hours of booking. Excellent work, very professional. Will definitely use Laborgro again!"</p>
+      <div class="testi-author">
+        <div class="testi-av">SA</div>
+        <div>
+          <div class="testi-name">Sneha Agarwal</div>
+          <div class="testi-loc">Customer • Noida</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"As a carpenter, I now get 3-4 jobs every week through the app. My income has doubled since joining Laborgro."</p>
+      <div class="testi-author">
+        <div class="testi-av">RK</div>
+        <div>
+          <div class="testi-name">Rakesh Kumar</div>
+          <div class="testi-loc">Worker • Delhi</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Hired a security guard for our office event. Prompt, trained, and reliable. The booking process was super smooth."</p>
+      <div class="testi-author">
+        <div class="testi-av">VM</div>
+        <div>
+          <div class="testi-name">Vikash Mehta</div>
+          <div class="testi-loc">Customer • Gurgaon</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="reveal">
+    <div class="section-label" style="text-align:center;">Get started today</div>
+    <h2 class="section-title">Ready to find the right<br>person for the job?</h2>
+    <p class="section-sub">Join Laborgro and experience a smarter, faster way to get work done.</p>
+    <div class="cta-actions">
+      <a href="#" class="btn-primary">Hire a Worker →</a>
+      <a href="#workers" class="btn-secondary">Register as Worker</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Laborgro</div>
+      <p class="footer-tagline">India's trusted platform connecting skilled blue-collar workers with people who need them.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="#">Painting</a>
+      <a href="#">Carpentry</a>
+      <a href="#">House Cleaning</a>
+      <a href="#">Security Guard</a>
+      <a href="#">All Services</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About Us</a>
+      <a href="#">How it Works</a>
+      <a href="#">For Workers</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Refund Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Laborgro. All rights reserved.</span>
+    <span>Made with ❤️ in India</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
